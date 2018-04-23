@@ -5,14 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     //Initializing button variables.
-    private Button play, pause;
+    private Button play, pause, jumpToStart;
 
     //Initializing MediaPlayer variable.
     private MediaPlayer mediaPlayer;
+
+    private double startTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         //Connecting the button variables with the Buttons in the layout xml.
         play = (Button) findViewById(R.id.play);
         pause = (Button) findViewById(R.id.pause);
+        jumpToStart = (Button) findViewById(R.id.jumpToStart);
 
         //Creating a MediaPlayer for playing the sample song.
         mediaPlayer = MediaPlayer.create(this, R.raw.bensound_happyrock);
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
                 mediaPlayer.start();
             }
         });
@@ -41,8 +46,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Pause", Toast.LENGTH_SHORT).show();
                 mediaPlayer.pause();
             }
         });
+
+        //Increasing volume.
+        jumpToStart.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Back to start", Toast.LENGTH_SHORT).show();
+                mediaPlayer.seekTo((int) startTime);
+            }
+        });
+
     }
 }
