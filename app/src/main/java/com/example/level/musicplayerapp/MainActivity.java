@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         jumpToStart = (Button) findViewById(R.id.jumpToStart);
 
         //Creating a MediaPlayer for playing the sample song.
-        mediaPlayer = MediaPlayer.create(this, R.raw.bensound_happyrock);
+        mediaPlayer = MediaPlayer.create(this, R.raw.funny_music);
 
         //Clicking on the Play Button the music starts.
         play.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Play", Toast.LENGTH_SHORT).show();
                 mediaPlayer.start();
+
+                //Async callback. When the song is finished, a Toast message is displayed.
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        Toast.makeText(MainActivity.this, "It's done.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
